@@ -1,0 +1,3 @@
+
+async function render(){const el=document.getElementById('record');el.dataset.ready='false';const data=await(await fetch('/content')).json();await new Promise(r=>setTimeout(r,80));el.replaceChildren();const title=document.createElement('h2');title.textContent=data.title;const text=document.createElement('p');text.textContent=data.text;el.append(title,text);el.dataset.revision=data.revision;el.dataset.ready='true';}
+document.getElementById('revise').onclick=async()=>{await fetch('/revision',{method:'POST'});await render();};document.getElementById('navigate').onclick=()=>location.href='/?visit='+Date.now();render();
